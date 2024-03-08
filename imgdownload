@@ -1,0 +1,24 @@
+import requests
+import os
+
+def download_images(url, folder):
+    """
+    Download images from the given URL to the specified folder.
+
+    Args:
+    - url (str): The URL containing the images.
+    - folder (str): The folder where images will be saved.
+    """
+    response = requests.get(url)
+    if response.status_code == 200:
+        os.makedirs(folder, exist_ok=True)
+        with open(os.path.join(folder, "image.jpg"), "wb") as file:
+            file.write(response.content)
+            print("Image downloaded successfully!")
+    else:
+        print("Failed to download image.")
+
+if __name__ == "__main__":
+    image_url = "https://example.com/image.jpg"
+    download_folder = "images"
+    download_images(image_url, download_folder)
